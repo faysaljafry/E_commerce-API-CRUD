@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\cartController;
 use App\Http\Controllers\CategoryApiController;
 use App\Http\Controllers\ProductApiController;
+use App\Models\cart;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,3 +38,8 @@ Route::post('createProduct', [ProductApiController::class, 'createProduct']);
 Route::post('updateProduct/{id}', [ProductApiController::class, 'updateProduct']);
 Route::post('deleteProduct/{id}', [ProductApiController::class, 'deleteProduct']);
 Route::get('getProductwithCategory/{id}', [ProductApiController::class,'getProductWithCategoryID']);
+
+//for Cart
+Route::get('getCartItems', [cartController::class, 'getCartItems']);
+Route::post('addToCart', [cartController::class, 'addToCart']);
+Route::post('deleteItemFromCart', [cartController::class, 'deleteFromCart']);

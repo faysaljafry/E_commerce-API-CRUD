@@ -30,8 +30,11 @@ class ProductApiController extends Controller
         $product -> p_color = $request->p_color;
         $product -> p_code = $request -> p_code;
         $product -> category_id = $request -> category_id;
+        $product -> price = $request -> price;
+        $product -> d_price = $request -> d_price;
         $product->save();
-        return response() -> json(["message" => "Product has been added."]);
+        $message = array('message' => 'Success!', 'title' => 'A new Product has been added.');
+        return response()->json($message);      
     }
     public function updateProduct(Request $request, $id){
         if(Product::where('id', $id) -> exists()){
