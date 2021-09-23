@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -37,6 +39,7 @@ class ProductApiController extends Controller
             $product->p_name = is_null($request->p_name) ? $product->p_name:$request->p_name;
             $product->p_color = is_null($request->p_color) ? $product->p_color:$request->p_color;
             $product->p_code = is_null($request->p_code) ? $product->p_code:$request->p_code;
+            $product->save();
             return response() -> json(["Messsage" => "Product has been Updated."]);
         } else{
             return response () -> json(["Message" => "Produnt could not be found."]);
@@ -50,5 +53,12 @@ class ProductApiController extends Controller
         } else{
             return response() -> json(["Message" => "The Product either was deleted or doesnt exist."]);
         }
+    }
+    public function getProductWithCategoryID($id){
+        $data = Category::join('products', 'categories.id', '=', 'products.category_id')
+                        ->where('categories.id', '=', $id)
+                        ->get(['products.*', 'categories.name']);
+
+        return response() -> json($data);
     }
 }

@@ -34,4 +34,5 @@ Route::get('viewProduct/{id}', [ProductApiController::class, 'getProduct']);
 Route::get('viewAllProducts', [ProductApiController::class, 'getAllProducts']);
 Route::post('createProduct', [ProductApiController::class, 'createProduct']);
 Route::post('updateProduct/{id}', [ProductApiController::class, 'updateProduct']);
-Route::post('deleteProduct', [ProductApiController::class, 'deleteProduct']);
+Route::post('deleteProduct/{id}', [ProductApiController::class, 'deleteProduct']);
+Route::get('getProductwithCategory/{id}', [ProductApiController::class,'getProductWithCategoryID']);
