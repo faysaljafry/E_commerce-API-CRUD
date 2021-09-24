@@ -10,7 +10,7 @@ class cartController extends Controller
 {
     public function getCartItems(){
         $cart = Product::join('carts', 'products.id', '=', 'carts.product_id')
-        ->get(['products.*']);
+        ->get(['carts.id', 'products.p_name', 'products.p_color', 'products.price', 'products.d_price']);
         return response() -> json($cart);
     }
 
@@ -22,11 +22,10 @@ class cartController extends Controller
         return response()->json($message);
     }
 
-    public function deleteFromCart(Request $request){
-        $id = $request->product_id;
-        if(Cart::where('product_id', $id) -> exists()){
-            
-            $cartItem = Cart::findOrFail($request -> product_id);
+    public function deleteFromCart($id){
+        //$id = $request->product_id;
+        if(Cart::where('id', $id) -> exists()){
+            $cartItem = Cart::findOrFail($id);
             $cartItem->delete();
             $message = array('message' => 'Found', 'title' => 'Deleted from Cart.');
             return response() -> json ($message);

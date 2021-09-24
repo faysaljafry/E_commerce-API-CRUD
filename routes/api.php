@@ -42,4 +42,4 @@ Route::get('getProductwithCategory/{id}', [ProductApiController::class,'getProdu
 //for Cart
 Route::get('getCartItems', [cartController::class, 'getCartItems']);
 Route::post('addToCart', [cartController::class, 'addToCart']);
-Route::post('deleteItemFromCart', [cartController::class, 'deleteFromCart']);
+Route::delete('deleteItemFromCart/{id}', [cartController::class, 'deleteFromCart']);
