@@ -4,8 +4,10 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\CategoryApiController;
 use App\Http\Controllers\ProductApiController;
-use App\Models\cart;
+use App\Http\Controllers\timeController;
+use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Time;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,3 +45,7 @@ Route::get('getProductwithCategory/{id}', [ProductApiController::class,'getProdu
 Route::get('getCartItems', [cartController::class, 'getCartItems']);
 Route::post('addToCart', [cartController::class, 'addToCart']);
 Route::delete('deleteItemFromCart/{id}', [cartController::class, 'deleteFromCart']);
+
+//for Time Management
+Route::get('getTime', [timeController::class, 'getTime']);
+Route::post('setTime/{id}', [timeController::class, 'setTime']);
