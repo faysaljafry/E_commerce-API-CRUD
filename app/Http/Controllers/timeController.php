@@ -9,8 +9,8 @@ class timeController extends Controller
 {
     public function getTime(Request $request){
 
-        if(Time::where('id', 2) -> exists()){
-            $time = Time::find(2);
+        if(Time::where('id', 1) -> exists()){
+            $time = Time::find(1);
             return response() -> json($time);
         } else{
             return response() -> json (["Message", "Could not find Time"]);
@@ -21,17 +21,30 @@ class timeController extends Controller
         if(Time::where('id', $id) -> exists()){
             $gotTime = Time::find($id);  //finding time with id =1
             $t = time();                    //getting current time
-            $time_hours = date("h", $t);    //parsing hours
-            $time_minutes = date("i", $t);
-            $time_seconds = date('s', $t) + 10;   //parsing seconds
+           // $difference = $gotTime -> seconds;
+            $gotTime->seconds += 30;
+            if($gotTime->seconds > 60){
+                $gotTime->seconds = $gotTime -> seconds - 60;
+                $gotTime -> minutes += 1; 
+            }
             
             //Updating time in table DB
-            $gotTime->hours = $time_hours;
-            $gotTime->minutes = $time_minutes;
-            $gotTime->seconds = $time_seconds;
+            $gotTime->hours = 0;
+            
             $gotTime->save();       //saving table
-            return response() -> json($gotTime);
+            return response() -> json ($gotTime);
         }
             return response() -> json(["Message" => "Could not find category with the id" ]);
+    }
+    public function updateTime(Request $request){
+        if(Time::where('id', 1) -> exists()){
+            $time = Time::find(1);
+            $time->minutes = $request->minutes;
+            $time -> seconds = $request -> seconds;
+            $time->save(); 
+            return response() -> json($request);
+        } else{
+            return response() -> json (["Message", "Could not find Time"]);
+        }
     }
 }

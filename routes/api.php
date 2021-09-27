@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Time;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use NunoMaduro\Collision\Adapters\Phpunit\Timer;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +50,4 @@ Route::delete('deleteItemFromCart/{id}', [cartController::class, 'deleteFromCart
 //for Time Management
 Route::get('getTime', [timeController::class, 'getTime']);
 Route::post('setTime/{id}', [timeController::class, 'setTime']);
+Route::post('updateTime', [timeController::class, 'updateTime']);
