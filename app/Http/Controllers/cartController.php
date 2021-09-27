@@ -10,13 +10,14 @@ class cartController extends Controller
 {
     public function getCartItems(){
         $cart = Product::join('carts', 'products.id', '=', 'carts.product_id')
-        ->get(['carts.id', 'products.p_name', 'products.p_color', 'products.price', 'products.d_price']);
+        ->get(['carts.id', 'carts.take_price', 'products.p_name', 'products.p_color', 'products.price']);
         return response() -> json($cart);
     }
 
     public function addToCart(Request $request){
         $cartItem = new Cart;
         $cartItem -> product_id = $request -> product_id;
+        $cartItem -> take_price = $request -> take_price;
         $cartItem->save();
         $message = array('message' => 'Success!', 'title' => 'Added Product to Cart.');
         return response()->json($message);
